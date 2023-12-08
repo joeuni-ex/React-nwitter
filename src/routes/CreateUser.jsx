@@ -1,5 +1,8 @@
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -48,6 +51,7 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); //네비게이션
 
   const onChange = (e) => {
     //이벤트 객체를 분리함 ( target -> name/value )
@@ -64,13 +68,22 @@ const CreateUser = () => {
 
   //console.log(name, email, password);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    if (isLoading || name === "" || email === "" || password === "") return; //만약 이름,이메일,패스워드가 공백이면 리턴함
     //회원가입 실행
     try {
-      // create an account
-      // set the name of the user.
-      // redirect to the home page
+      setLoading(true);
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(credentials.user);
+      await updateProfile(credentials.user, {
+        displayName: name, // 이름 저장
+      });
+      navigate("/"); //회원가입 완료 후 기본 페이지로
     } catch (e) {
       // setError
     } finally {
