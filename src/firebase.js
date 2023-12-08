@@ -13,4 +13,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //파이어베이스 인증
-export const auth = getAuth();
+const auth = getAuth();
+
+export { auth };
