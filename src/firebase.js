@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -15,4 +17,10 @@ const app = initializeApp(firebaseConfig);
 //파이어베이스 인증
 const auth = getAuth();
 
-export { auth };
+//파이어스토어 DB사용
+const db = getFirestore(app);
+
+//스토리지 사용
+const storage = getStorage(app);
+
+export { auth, storage, db };
