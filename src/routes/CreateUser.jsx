@@ -57,7 +57,7 @@ const CreateUser = () => {
       navigate("/"); //회원가입 완료 후 기본 페이지로
     } catch (e) {
       if (e instanceof FirebaseError) {
-        setError(e.code, e.message);
+        setError(e.code);
       }
     } finally {
       setLoading(false);
