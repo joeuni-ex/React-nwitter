@@ -8,6 +8,7 @@ import {
   Switcher,
   Title,
   Wrapper,
+  errorMessageToKorean,
 } from "../components/auth-components";
 import { auth } from "../firebase";
 import { FirebaseError } from "firebase/app";
@@ -95,7 +96,7 @@ const CreateUser = () => {
           value={isLoading ? "Loading..." : "Create Account"}
         />
       </Form>
-      {error && <Error>{error}</Error>}
+      {error && <Error>{errorMessageToKorean(error)}</Error>}
       <Switcher>
         이미 계정이 있습니까? <Link to="/login">로그인 &rarr;</Link>
       </Switcher>
