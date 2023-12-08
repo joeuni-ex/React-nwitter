@@ -55,7 +55,7 @@ function App() {
     //파이어베이스 체크
     //2초동안 로딩한 다음 loading을 false시킨다.
     //setTimeout(() => setIsLoading(false), 2000);
-    await auth.authStateReady();
+    await auth.authStateReady(); //준비가 됐는지?
     setIsLoading(false);
   };
   //한 번만 실행한다.
