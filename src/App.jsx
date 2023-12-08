@@ -5,7 +5,7 @@ import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 import Login from "./routes/Login";
 import CreateUser from "./routes/CreateUser";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/LoadingScreen";
@@ -22,6 +22,12 @@ const GlobalStyle = createGlobalStyle`
     color:white;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
+`;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 `;
 
 const router = createBrowserRouter([
@@ -65,9 +71,11 @@ function App() {
 
   return (
     <>
-      <GlobalStyle />
-      {/* 로딩이면 로딩스크린을 보여주고 아니면 router를 보여준다 */}
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      <Wrapper>
+        <GlobalStyle />
+        {/* 로딩이면 로딩스크린을 보여주고 아니면 router를 보여준다 */}
+        {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      </Wrapper>
     </>
   );
 }
