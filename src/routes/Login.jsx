@@ -12,6 +12,7 @@ import {
   Wrapper,
   errorMessageToKorean,
 } from "../components/auth-components";
+import GithubButton from "../components/GithubButton";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ const Login = () => {
       <Switcher>
         계정이 없으신가요? <Link to="/create-user">가입하기 &rarr;</Link>
       </Switcher>
+      <GithubButton />
     </Wrapper>
   );
 };

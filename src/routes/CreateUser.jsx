@@ -12,6 +12,7 @@ import {
 } from "../components/auth-components";
 import { auth } from "../firebase";
 import { FirebaseError } from "firebase/app";
+import GithubButton from "../components/GithubButton";
 
 const CreateUser = () => {
   const [isLoading, setLoading] = useState(false);
@@ -100,6 +101,7 @@ const CreateUser = () => {
       <Switcher>
         이미 계정이 있습니까? <Link to="/login">로그인 &rarr;</Link>
       </Switcher>
+      <GithubButton />
     </Wrapper>
   );
 };
