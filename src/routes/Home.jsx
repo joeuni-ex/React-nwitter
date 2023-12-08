@@ -1,11 +1,11 @@
-import { auth } from "../firebase";
+import PostTweetForm from "../components/PostTweetForm";
 
 const Home = () => {
-  //로그아웃 함수
-  const logOut = () => {
-    auth.signOut();
-  };
-  return <h1>Home</h1>;
+  return (
+    <h1>
+      <PostTweetForm />
+    </h1>
+  );
 };
 
 export default Home;
