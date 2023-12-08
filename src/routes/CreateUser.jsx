@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
+import { FirebaseError } from "firebase/app";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -87,7 +88,9 @@ const CreateUser = () => {
       });
       navigate("/"); //회원가입 완료 후 기본 페이지로
     } catch (e) {
-      // setError
+      if (e instanceof FirebaseError) {
+        console.log(e.code, e.message);
+      }
     } finally {
       setLoading(false);
     }
