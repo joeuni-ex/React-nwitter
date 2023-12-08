@@ -26,8 +26,8 @@ const GithubButton = () => {
   const navigate = useNavigate();
   const onClick = async () => {
     try {
-      //깃허브인증 제공 객체
-      //팝업으로 깃허브인증받기
+      const provider = new GithubAuthProvider(); //깃허브인증 제공 객체
+      await signInWithPopup(auth, provider); //팝업으로 깃허브인증받기
       navigate("/");
     } catch (error) {
       console.error(error);
