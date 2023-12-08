@@ -5,7 +5,10 @@ import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 import Login from "./routes/Login";
 import CreateUser from "./routes/CreateUser";
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
+//styled Conponents
 const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
