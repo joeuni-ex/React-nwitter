@@ -70,8 +70,23 @@ const PostTweetForm = () => {
       setFile(files[0]);
     }
   };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user || isLoading || tweet === "" || tweet.length > 180) return;
+    try {
+      setLoading(true);
+      //파이어 스토어에 tweet 저장하기
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <TextArea
         rows={5}
         maxLength={180}
