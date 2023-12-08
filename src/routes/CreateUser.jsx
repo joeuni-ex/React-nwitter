@@ -71,15 +71,17 @@ const CreateUser = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (isLoading || name === "" || email === "" || password === "") return; //만약 이름,이메일,패스워드가 공백이면 리턴함
+
     //회원가입 실행
     try {
-      setLoading(true);
+      setLoading(true); //로딩 시작
+      //유저정보
       const credentials = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(credentials.user);
+      console.log(credentials.user); // 유저 정보 출력
       await updateProfile(credentials.user, {
         displayName: name, // 이름 저장
       });
@@ -89,7 +91,6 @@ const CreateUser = () => {
     } finally {
       setLoading(false);
     }
-    console.log(name, email, password);
   };
   return (
     <Wrapper>
