@@ -21,6 +21,7 @@ const Title = styled.h1`
 
 const Form = styled.form`
   margin-top: 50px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -71,6 +72,7 @@ const CreateUser = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setError(""); //에러 초기화
     if (isLoading || name === "" || email === "" || password === "") return; //만약 이름,이메일,패스워드가 공백이면 리턴함
 
     //회원가입 실행
@@ -89,7 +91,7 @@ const CreateUser = () => {
       navigate("/"); //회원가입 완료 후 기본 페이지로
     } catch (e) {
       if (e instanceof FirebaseError) {
-        console.log(e.code, e.message);
+        setError(e.code, e.message);
       }
     } finally {
       setLoading(false);
