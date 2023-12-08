@@ -10,6 +10,7 @@ import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import { auth } from "./firebase";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 //styled Conponents
 const GlobalStyle = createGlobalStyle`
@@ -33,7 +34,11 @@ const Wrapper = styled.div`
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",
