@@ -89,7 +89,9 @@ const Profile = () => {
   //아바타 변경 시
   const onAvatarChange = async (e) => {
     const { files } = e.target;
+    //유저가 없으면 리턴
     if (!user) return;
+    //파일이 있으면 프로필을 업데이트한다.
     if (files && files.length === 1) {
       const file = files[0];
       const locationRef = ref(storage, `avatars/${user?.uid}`);
@@ -104,12 +106,15 @@ const Profile = () => {
 
   //프로필 이름 수정 함수
   const updateName = async () => {
+    //수정할 이름이 공백이거나 이름의 길이가 2자보다 작으면 리턴한다.
     if (!name || name.trim().length < 2) return;
+    //유저가 없으면 리턴한다.
     if (!user) return;
+    //프로필 유저의 이름을 업데이트한다.
     await updateProfile(user, {
       displayName: name,
     });
-
+    // 업데이트 종료
     setIsUpdate(false);
   };
 
