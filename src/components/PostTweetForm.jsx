@@ -1,5 +1,7 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { styled } from "styled-components";
+import { auth, db } from "../firebase";
 
 const Form = styled.form`
   display: flex;
@@ -58,9 +60,9 @@ const SubmitBtn = styled.input`
 `;
 
 const PostTweetForm = () => {
-  const [isLoading, setLoading] = useState(false);
-  const [tweet, setTweet] = useState("");
-  const [file, setFile] = useState(null);
+  const [isLoading, setLoading] = useState(false); //로딩여부
+  const [tweet, setTweet] = useState(""); // 트윗 내용
+  const [file, setFile] = useState(null); //파일(이미지)
   const onChange = (e) => {
     setTweet(e.target.value);
   };
@@ -74,11 +76,19 @@ const PostTweetForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const user = auth.currentUser;
+    //유저 정보가 없거나, 로딩상태거나, 트윗 내용이 없거나,180자 이상이면 리턴한다.
     if (!user || isLoading || tweet === "" || tweet.length > 180) return;
     try {
       setLoading(true);
-      //파이어 스토어에 tweet 저장하기
+      //파이어 스토어에 tweet 저장하기 -> addDoc
+      await addDoc(collection(db, "tweets"), {
+        tweet, //tweet : tweet과 동일한 코드
+        createdAt: Date.now(),
+        username: user.displayName || "익명",
+        userId: user.uid,
+      });
     } catch (e) {
+      //에러가 날 경우에 콘솔로 출력함.
       console.log(e);
     } finally {
       setLoading(false);
