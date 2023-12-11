@@ -56,6 +56,8 @@ const Profile = () => {
   //인정된 유저가 있으면, 유저의 프로필 URL을 state에 저장
   const [avatar, setAvatar] = useState(user?.photoURL);
   const [tweets, setTweets] = useState([]);
+  const [isUpdate, setIsUpdate] = useState(false); //프로필 수정
+  const [name, setName] = useState(""); //프로필 이름 수정 시
 
   // 내가 쓴 트윗만 가져오는 쿼리
   const fetchTweets = async () => {
@@ -100,6 +102,17 @@ const Profile = () => {
     }
   };
 
+  //프로필 이름 수정 함수
+  const updateName = async () => {
+    if (!name || name.trim().length < 2) return;
+    if (!user) return;
+    await updateProfile(user, {
+      displayName: name,
+    });
+
+    setIsUpdate(false);
+  };
+
   return (
     <Wrapper>
       <AvatarUpload htmlFor="avatar">
@@ -126,6 +139,18 @@ const Profile = () => {
       />
       {/* 유저의 이름이 없을 경우 익명으로 표시하기 */}
       <Name>{user?.displayName ?? "익명"}</Name>
+      {isUpdate ? (
+        <>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="새이름..."
+          />
+          <button onClick={updateName}>저장</button>
+        </>
+      ) : (
+        <button onClick={() => setIsUpdate(true)}>수정</button>
+      )}
       <Tweets>
         {tweets.map((tweet) => (
           <Tweet key={tweet.id} {...tweet} />
