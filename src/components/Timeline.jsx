@@ -1,6 +1,7 @@
 import {
   collection,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -23,7 +24,11 @@ const Timeline = () => {
     const fetchTweets = async () => {
       //tweets 컬렉션에서 가져온다.
       //작성일자 기준으로 내림차순으로 가져온다(최신일자)
-      const q = query(collection(db, "tweets"), orderBy("createdAt", "desc"));
+      const q = query(
+        collection(db, "tweets"),
+        orderBy("createdAt", "desc"),
+        limit(25)
+      );
       //다 가져올때 까지 기다림
       //const snapshot = await getDocs(q);
       //snapshot안의 docs가 실제 문서임
